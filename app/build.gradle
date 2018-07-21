@@ -1,0 +1,94 @@
+apply plugin: 'com.android.application'
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+    }
+}
+
+android {
+    signingConfigs {
+        config {
+            keyAlias 'FirstKeyStore'
+            keyPassword 'FirstKeyStore'
+            storeFile file('D:/Projects/Android Apps/ExampleKeyStore/FirstKeyStore.jks')
+            storePassword 'FirstKeyStore'
+        }
+    }
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
+    defaultConfig {
+        applicationId "com.udacity.gradle.builditbigger"
+        //make sure minSdkVersion isn't below library's minimum
+        minSdkVersion 23
+        targetSdkVersion 27
+        versionCode 1
+        versionName "1.0"
+        multiDexEnabled true
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
+        }
+    }
+    //All flavors must now belong to a named flavor dimension.
+    //Learn more at https://d.android.com/r/tools/flavorDimensions-missing-error-message.html
+    flavorDimensions "tier"
+    productFlavors {
+        free {
+            applicationId "com.udacity.gradle.builditbigger.free"
+            dimension "tier"
+            signingConfig signingConfigs.config
+        }
+        paid {
+            applicationId "com.udacity.gradle.builditbigger.paid"
+            dimension "tier"
+            signingConfig signingConfigs.config
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:27.1.1'
+    implementation 'com.android.support:customtabs:27.1.1'
+    implementation 'com.android.support:animated-vector-drawable:27.1.1'
+    implementation 'com.android.support:support-media-compat:27.1.1'
+
+    //so only have ads gradle run in free version
+    freeImplementation 'com.google.android.gms:play-services-ads:15.0.1'
+
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+    //to support multi-dexing
+    implementation 'com.android.support:multidex:1.0.3'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testImplementation 'junit:junit:4.12'
+    //Include dependency for javaDadJokes
+    implementation project(':javaDadJokes')
+    implementation project(':displaydadjoke')
+    //Espresso dependencies
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:2.2.2'
+    implementation 'com.android.support.test.espresso:espresso-idling-resource:2.2.2'
+
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        def requested = details.requested
+        if (requested.group == 'com.android.support') {
+            if (!requested.name.startsWith("multidex")) {
+                details.useVersion '27.1.1'
+            }
+        }
+
+    }
+}
