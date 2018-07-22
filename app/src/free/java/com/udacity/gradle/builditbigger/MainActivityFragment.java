@@ -18,6 +18,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.udacity.gradle.builditbigger.R;
 
 import java.util.Objects;
 
@@ -37,7 +38,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     private boolean interstitialAdClosed = false;
 
     private String dadJoke;
-    Context mContext;
+    private Context mContext;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,

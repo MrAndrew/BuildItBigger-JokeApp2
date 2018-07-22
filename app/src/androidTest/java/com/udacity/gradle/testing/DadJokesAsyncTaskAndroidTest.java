@@ -39,7 +39,7 @@ public class DadJokesAsyncTaskAndroidTest {
     }
 
     @Test
-    public void testVerifyJokeReturned() throws InterruptedException {
+    public void testVerifyJokeReturned() {
         onView(withId(R.id.tell_joke_btn)).perform(click());
 
         //not sure how to match one of the many possible jokes since it's randomized, so just making

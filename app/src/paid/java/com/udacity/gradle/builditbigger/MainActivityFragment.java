@@ -24,7 +24,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     private ProgressBar loadingCircle;
 
     private String dadJoke;
-    Context mContext;
+    private Context mContext;
 
     public MainActivityFragment() {
     }

@@ -1,6 +1,6 @@
 package com.example.javadadjokes;
 
-public class DadJokes {
+public final class DadJokes {
 
     private String dadJoke;
 

@@ -19,7 +19,7 @@ public class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
         void processFinish(String output);
     }
 
-    public AsyncResponse delegate = null;
+    public AsyncResponse delegate;
 
     public EndpointsAsyncTask(AsyncResponse delegate){
         this.delegate = delegate;

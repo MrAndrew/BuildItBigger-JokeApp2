@@ -18,8 +18,8 @@ import java.util.concurrent.ThreadLocalRandom;
 )
 public class MyEndpoint {
 
-    private int MIN = 0;
-    private int MAX = 14;
+    private final int MIN = 0;
+    private final int MAX = 14;
 
     @ApiMethod(name = "tellDadJoke")
     public MyBean tellDadJoke() {
